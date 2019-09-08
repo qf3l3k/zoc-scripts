@@ -1,0 +1,20 @@
+---
+- name: Recycle 01coin Masternode
+  hosts: 01coin
+  remote_user: root
+  sudo: yes
+  
+  tasks:
+  - name: Copy 01coin chain to masternode
+    copy:
+      src: /full/patch/to/blockchain/archive/chain_01coin.tar.gz
+      dest: /root/.zeroonecore/chain_01coin.tar.gz
+      force: yes
+
+  - name: Transfer recycle script
+    copy: 
+      src: 01coin_chain_reset.sh 
+      dest: /root mode=0777
+
+  - name: Execute the script
+    command: sh /root/01coin_chain_reset.sh
